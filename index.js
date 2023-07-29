@@ -4,13 +4,22 @@ const player = (name, mark) => {
   return { name, mark };
 };
 
-const GamingBoard = (() => {
+// board argument is declared on the first line and passed it here.
+const GamingBoard = ((board) => {
+  let boardRecord = {
+    X: "",
+    0: "",
+  };
   const player1 = player("Chanpeet", "X");
   const player2 = player("Singh", "0");
   let turn = currentPlayer();
 
+  // boxNumbers are obtained from the onClick event, getBoardInput
   const renderOnTheDisplay = (boxNumber) => {
-    board[boxNumber].appendChild(document.createTextNode(turn().mark));
+    const mark = turn().mark;
+    board[boxNumber].appendChild(document.createTextNode(mark));
+    boardRecord[mark] += boxNumber;
+    winner();
   };
 
   // toggle between the current players
@@ -21,8 +30,11 @@ const GamingBoard = (() => {
       return current;
     };
   }
+
+  function winner() {}
+
   return { renderOnTheDisplay, currentPlayer };
-})();
+})(board);
 
 // function to get the target box on the board through onClick event
 function getBoardInput(event) {
