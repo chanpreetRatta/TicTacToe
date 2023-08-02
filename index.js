@@ -6,20 +6,25 @@ const player = (name, mark) => {
 
 // board argument is declared on the first line and passed it here.
 const GamingBoard = ((board) => {
-  let boardRecord = {
-    X: "",
-    0: "",
-  };
+  let boardRecord = {};
   const player1 = player("Chanpeet", "X");
   const player2 = player("Singh", "0");
   let turn = currentPlayer();
 
   // boxNumbers are obtained from the onClick event, getBoardInput
+  //code below will get the appended data in the box and put it in the boardRecord.
+  // board.forEach will erase the old data and insert the new entries in the boardRecord
   const renderOnTheDisplay = (boxNumber) => {
+    boardRecord = {};
     const mark = turn().mark;
     board[boxNumber].appendChild(document.createTextNode(mark));
-    boardRecord[mark] += boxNumber;
-    winner();
+    board.forEach((box) => {
+      if (!boardRecord[box.innerHTML]) boardRecord[box.innerHTML] = "";
+      boardRecord[box.innerHTML] += box.dataset.box;
+    });
+    console.log(boardRecord);
+
+    if (winner(mark)) console.log("Hello");
   };
 
   // toggle between the current players
@@ -31,7 +36,25 @@ const GamingBoard = ((board) => {
     };
   }
 
-  function winner() {}
+  function winner(mark) {
+    let winningCombinations = [
+      "036",
+      "012",
+      "048",
+      "147",
+      "246",
+      "258",
+      "345",
+      "678",
+    ];
+
+    console.log(boardRecord[mark].slice(-3));
+
+    return (
+      winningCombinations.includes(boardRecord[mark].slice(-3)) ||
+      winningCombinations.includes(boardRecord[mark].slice(0, 3))
+    );
+  }
 
   return { renderOnTheDisplay, currentPlayer };
 })(board);
