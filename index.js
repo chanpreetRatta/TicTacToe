@@ -22,9 +22,15 @@ const GamingBoard = ((board) => {
       if (!boardRecord[box.innerHTML]) boardRecord[box.innerHTML] = "";
       boardRecord[box.innerHTML] += box.dataset.box;
     });
-    console.log(boardRecord);
 
-    if (winner(mark)) console.log("Hello");
+    if (winner(mark)) {
+      console.log(`Congratulation ${currentPlayer()().name} wins`);
+    }
+    // else will check if there is no empty box in the gaming board by
+    // checking there is no value to [""] string in the object AND there is not winner
+    else if (!boardRecord[""] && !winner(mark)) {
+      console.log("It's a draw");
+    }
   };
 
   // toggle between the current players
@@ -47,8 +53,6 @@ const GamingBoard = ((board) => {
       "345",
       "678",
     ];
-
-    console.log(boardRecord[mark].slice(-3));
 
     return (
       winningCombinations.includes(boardRecord[mark].slice(-3)) ||
