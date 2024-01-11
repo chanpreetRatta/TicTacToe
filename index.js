@@ -54,9 +54,10 @@ const GamingBoard = ((board) => {
       "678",
     ];
 
-    return (
-      winningCombinations.includes(boardRecord[mark].slice(-3)) ||
-      winningCombinations.includes(boardRecord[mark].slice(0, 3))
+    return winningCombinations.some((combination) =>
+      combination
+        .split("")
+        .every((position) => boardRecord[mark].includes(position))
     );
   }
 
