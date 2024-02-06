@@ -11,6 +11,8 @@ html, body{
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 50px;
 }
 
 .game{
@@ -65,4 +67,17 @@ html, body{
 .game > .play-box:last-child{
     border-bottom: 0;
     border-right: 0;
+}
+
+.winners{
+    background-color: rgb(181, 211, 239);
+    border-radius: 3px;
+    height: 2rem;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.winners:empty{
+    display: none;
 }

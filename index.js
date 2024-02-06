@@ -1,14 +1,17 @@
 const board = document.querySelectorAll(".play-box");
+const announceWinner = document.querySelector(".winners");
+announceWinner.classList.add("winners");
 
 const player = (name, mark) => {
   return { name, mark };
 };
 
+const player1 = player("Player One", "X");
+const player2 = player("Player Two", "0");
+
 // board argument is declared on the first line and passed it here.
 const GamingBoard = ((board) => {
   let boardRecord = {};
-  const player1 = player("Chanpeet", "X");
-  const player2 = player("Singh", "0");
   let turn = currentPlayer();
 
   // boxNumbers are obtained from the onClick event, getBoardInput
@@ -17,6 +20,7 @@ const GamingBoard = ((board) => {
   const renderOnTheDisplay = (boxNumber) => {
     boardRecord = {};
     const mark = turn().mark;
+    ``;
     board[boxNumber].appendChild(document.createTextNode(mark));
     board.forEach((box) => {
       if (!boardRecord[box.innerHTML]) boardRecord[box.innerHTML] = "";
@@ -24,7 +28,11 @@ const GamingBoard = ((board) => {
     });
 
     if (winner(mark)) {
-      console.log(`Congratulation ${currentPlayer()().name} wins`);
+      //this line will reverse the winner so that when we declare the winner it does not reverse;
+      turn();
+      announceWinner.appendChild(
+        document.createTextNode(`The winner is ${turn().name}`)
+      );
     }
     // else will check if there is no empty box in the gaming board by
     // checking there is no value to [""] string in the object AND there is not winner
